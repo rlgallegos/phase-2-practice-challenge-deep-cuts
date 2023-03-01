@@ -1,11 +1,32 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Track from './Track'
 
 function TracksList({tracks}) {
+  const [sortTerm, setSortTerm] = useState('')
 
-  const trackElements = tracks.map(track => {
+
+  //sort logic (case insenstive)
+  let filteredResults = [...sortTerm]
+  if (sortTerm === "BPM") {
+    filteredResults = tracks.sort((a, b) => a[sortTerm] - b[sortTerm])
+  } else if (sortTerm === 'artist' || sortTerm === 'title') {
+    filteredResults = tracks.sort((a, b) => {
+      if (a[sortTerm].toLowerCase() < b[sortTerm].toLowerCase()) {
+        return -1
+      } else return 1
+    })
+  } else {
+    filteredResults = [...tracks]
+  }
+  
+
+  const trackElements = filteredResults.map(track => {
     return <Track key={track.id} track={track} />
   })
+
+  function handleClick(e) {
+    setSortTerm(e.target.id)
+  }
 
 
   return (
@@ -13,17 +34,17 @@ function TracksList({tracks}) {
       <tbody>
         <tr>
           <th>
-          <h3 className="row-image">Img</h3>
+          <h3 id='image' className="row-image">Img</h3>
 
           </th>
           <th>
-            <h3 className="row-title">Title</h3>
+            <h3 id='title' onClick={handleClick} className="row-title">Title</h3>
           </th>
           <th>
-            <h3 className="">Artist</h3>
+            <h3 id='artist' onClick={handleClick} className="">Artist</h3>
           </th>
           <th>
-            <h3 className="">BPM</h3>
+            <h3 id='BPM' onClick={handleClick} className="">BPM</h3>
           </th>
         </tr>
         {trackElements}
