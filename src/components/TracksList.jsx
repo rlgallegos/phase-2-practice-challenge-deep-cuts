@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Track from './Track'
 
-function TracksList({tracks}) {
+function TracksList({ handleDeleteTrack, tracks}) {
   const [sortTerm, setSortTerm] = useState('')
 
 
@@ -21,14 +21,13 @@ function TracksList({tracks}) {
   
 
   const trackElements = filteredResults.map(track => {
-    return <Track key={track.id} track={track} />
+    return <Track onDeleteTrack={handleDeleteTrack} key={track.id} track={track} />
   })
 
   function handleClick(e) {
     setSortTerm(e.target.id)
   }
-
-
+  
   return (
     <table>
       <tbody>

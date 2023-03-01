@@ -3,14 +3,14 @@ import Search from './Search'
 import AddTrackForm from './AddTrackForm'
 import TracksList from './TracksList'
 
-function TracksPage({handleAddTrack, tracks}) {
+function TracksPage({ handleDeleteTrack, handleAddTrack, tracks}) {
 
     
   return (
     <div>
       <Search />
       <AddTrackForm onAddTrack={handleAddTrack} />
-      <TracksList tracks={tracks} />
+      <TracksList handleDeleteTrack={handleDeleteTrack} tracks={tracks} />
     </div>
   )
 }

@@ -18,13 +18,18 @@ function App() {
     setTracks([...tracks, trackObj])
   }
 
+  function handleDeleteTrack(trackObj) {
+    const newArray = tracks.filter(track => trackObj.id !== track.id)
+    setTracks(newArray)
+  }
+
   return (
     <div>
       <div className="header">
         <img src={vinyl} alt="vinyl record" />
         <h1>Flatiron Deep Cuts</h1>
       </div>
-      <TracksPage handleAddTrack={handleAddTrack} tracks={tracks} />
+      <TracksPage handleDeleteTrack={handleDeleteTrack} handleAddTrack={handleAddTrack} tracks={tracks} />
     </div>
   );
 }
